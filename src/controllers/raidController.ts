@@ -55,3 +55,53 @@ export const getRaids = async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Error fetching raids' });
   }
 };
+
+export const updateRaid = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params as { id: string };
+    const userId = (req as any).userId;
+    const { title, game, platform, description, nickname } = req.body;
+
+    const raid = await prisma.raid.findUnique({ where: { id } });
+
+    if (!raid) {
+      return res.status(404).json({ message: 'Raid not found' });
+    }
+    if (raid.authorId !== userId) {
+      return res.status(403).json({ message: "You don't have permission to update this Raid" });
+    }
+
+    const updatedRaid = await prisma.raid.update({
+      where: { id },
+      data: { title, game, platform, description, nickname },
+    });
+
+    return res.json({ message: 'Raid updated!', raid: updatedRaid });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error upadating raid' });
+  }
+};
+
+export const deleteRaid = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params as { id: string };
+    const userId = (req as any).userId;
+
+    const raid = await prisma.raid.findUnique({ where: { id } });
+
+    if (!raid) {
+      return res.status(404).json({ message: 'Raid not found' });
+    }
+    if (raid.authorId !== userId) {
+      return res.status(403).json({ message: "You don't have permission to delete this Raid" });
+    }
+
+    await prisma.raid.delete({ where: { id } });
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error deleting raid' });
+  }
+};
