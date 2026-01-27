@@ -1,5 +1,6 @@
 # Raid Finder API
 𝔟𝔶: 𝔊𝔦𝔬𝔳𝔞𝔫𝔦 𝔖𝔞𝔩𝔳𝔞𝔡𝔬𝔯
+
 A robust REST API for organizing raids in online games, built with Node.js, TypeScript, and Prisma ORM.
 
 ## Technologies
@@ -20,7 +21,7 @@ A robust REST API for organizing raids in online games, built with Node.js, Type
 
 ## Getting Started (Local Setup)
 
-##Prerequisites
+###Prerequisites
 
 - Node.js (v18 or higher)
 - NPM or Yarn
@@ -36,15 +37,24 @@ A robust REST API for organizing raids in online games, built with Node.js, Type
    
 3. Environment Variables:
    Create a .env file in the root directory:
+       ├─ raid-finder-backend/
+       │   └─ node_modules/
+       │   └─ prisma/    
+       │   └─ src/    
+       │ └─ .env <--- HERE
+       │ └─ .gitignore
+       │ └─ .package-lock.json
+       │ └─ .package.json
+       │ └─ .tsconfig.json 
    ```bash
    DATABASE_URL="file:./dev.db"
    JWT_SECRET="your_secure_random_string"
    
-4. Database Setup:
+5. Database Setup:
    ```bash
    npx prisma db push
    
-5. Run Development Server:
+6. Run Development Server:
    ```bash
    npm run dev
    
