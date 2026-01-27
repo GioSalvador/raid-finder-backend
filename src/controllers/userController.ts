@@ -83,6 +83,18 @@ export const getUsers = async (req: Request, res: Response) => {
         username: true,
         email: true,
         createdAt: true,
+        raids: {
+          select: {
+            id: true,
+            title: true,
+            game: true,
+            platform: true,
+            createdAt: true,
+          },
+        },
+      },
+      orderBy: {
+        username: 'asc',
       },
     });
     return res.json(users);
