@@ -38,18 +38,23 @@ A robust REST API for organizing raids in online games, built with Node.js, Type
 3. Environment Variables:
    Create a .env file in the root directory:
    ```bash
-   DATABASE_URL="file:./dev.db"
+   DATABASE_URL="postgresql://postgres:1234@localhost:5432/raidfinder?schema=public"
    JWT_SECRET="your_secure_random_string"
-   
-5. Database Setup:
+   ```
+4. Running with Docker
+- Spin up the PostgreSQL container:
+   ```bash
+   docker-compose up -d
+   ```
+- Apply migrations to the database:
    ```bash
    npx prisma db push
-   
+   ```
 6. Run Development Server:
    ```bash
    npm run dev
    
-4. Database Setup:
+8. Database Setup:
    ```bash
    npx prisma db push
    
