@@ -53,3 +53,91 @@ A robust REST API for organizing raids in online games, built with Node.js, Type
    ```bash
    npx prisma db push
    
+## API Endpoints
+
+### User Management 
+
+1. POST - Create user
+```bash
+/signup
+```
+- JSON:
+```bash
+{
+  "email": "user@email.com",
+  "username": "user",
+  "password": "mysecretpassword1234"
+}
+```
+2. POST - Login
+```bash
+/login
+```
+- JSON:
+```bash
+{
+  "email": "user@email.com",
+  "password": "mysecretpassword1234"
+}
+```
+3. GET - List all users
+```bash
+/users
+```
+4. GET - Logged-in user profile (token required)
+```bash
+/users/me
+```
+5. PUT - Update logged-in user profile (token required)
+```bash
+/users/me
+```
+- JSON:
+```bash
+{
+  "email": "new@email.com"
+}
+```
+6. DELETE - Remove account and all its raids (token required)
+```bash
+/users/me
+```
+
+### Raid Management 
+
+1. POST - Create a new raid (token required)
+```bash
+/raids
+```
+- JSON:
+```bash
+{
+  "title": "XP Farm",
+  "game": "Destiny 2",
+  "platform": "Steam/PC",
+  "description": "Need someone to help me with xp farming",
+  "nickname": "Strøke"
+}
+```
+2. GET - List all active raids
+```bash
+/raids
+```
+3. PUT - Update a raid (Owner only)
+```bash
+/raids/:id
+```
+- JSON:
+```bash
+{
+  "title": "XP Farm EDITED"
+}
+```
+4. DELETE - Delete a raid (Owner only)
+```bash
+/raids/:id
+```
+## Security Concepts
+
+This API implements IDOR (Insecure Direct Object Reference) protection. By using /users/me routes and extracting user identity directly from the JWT payload, we ensure that no user can manipulate URL parameters to access or modify data belonging to others.
+
