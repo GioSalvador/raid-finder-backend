@@ -3,7 +3,12 @@ import prisma from '../services/prisma.js';
 
 export const createRaid = async (req: Request, res: Response) => {
   try {
-    const { title, game, platform, description, nickname, authorId } = req.body;
+    const { title, game, platform, description, nickname } = req.body;
+    const authorId = (req as any).userId;
+
+    if (!authorId) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
 
     const newRaid = await prisma.raid.create({
       data: {
@@ -23,7 +28,7 @@ export const createRaid = async (req: Request, res: Response) => {
       },
     });
 
-    return res.status(201).json({ message: 'Raid created successfully!' });
+    return res.status(201).json({ message: 'Raid created successfully!', raid: newRaid });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Error creating raid' });
