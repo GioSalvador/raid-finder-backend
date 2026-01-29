@@ -37,11 +37,27 @@ export const createRaid = async (req: Request, res: Response) => {
 
 export const getRaids = async (req: Request, res: Response) => {
   try {
+    const { game, platform, search } = req.query;
+    const where: any = {};
+
+    if (game) where.game = game as string;
+
+    if (platform) where.platform = platform as string;
+
+    if (search) {
+      where.OR = [
+        { title: { contains: search as string, mode: 'insensitive' } },
+        { description: { contains: search as string, mode: 'insensitive' } },
+      ];
+    }
+
     const raids = await prisma.raid.findMany({
+      where,
       include: {
         author: {
           select: {
             username: true,
+            email: true,
           },
         },
       },
@@ -49,6 +65,7 @@ export const getRaids = async (req: Request, res: Response) => {
         createdAt: 'desc',
       },
     });
+
     return res.json(raids);
   } catch (error) {
     console.error(error);
