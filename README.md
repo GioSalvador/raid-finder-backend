@@ -128,7 +128,23 @@ A robust REST API for organizing raids in online games, built with Node.js, Type
 ```bash
 /raids
 ```
-3. PUT - Update a raid (Owner only)
+3. GET - List raid filtered by game
+```bash
+/raids?game=Destiny 2
+```
+4. GET - List raid filtered by platform
+```bash
+/raids?platform=PC
+```
+5. GET - List raid global filter
+```bash
+/raids?search=help
+```
+6. GET - List raid combined
+```bash
+/raids?game=Valorant&search=ranked
+```
+7. PUT - Update a raid (Owner only)
 ```bash
 /raids/:id
 ```
@@ -138,7 +154,7 @@ A robust REST API for organizing raids in online games, built with Node.js, Type
   "title": "XP Farm EDITED"
 }
 ```
-4. DELETE - Delete a raid (Owner only)
+8. DELETE - Delete a raid (Owner only)
 ```bash
 /raids/:id
 ```
