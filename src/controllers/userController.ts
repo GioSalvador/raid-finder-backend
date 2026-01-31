@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import prisma from '../services/prisma.js';
+import { prisma } from '../lib/prisma.js';
 
 export const createUser = async (req: Request, res: Response) => {
   try {

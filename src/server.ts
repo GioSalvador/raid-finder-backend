@@ -1,12 +1,7 @@
-import 'dotenv/config';
-import express from 'express';
-import userRoutes from './routes/userRoutes.js';
-import raidRoutes from './routes/raidRoutes.js';
+import { app } from './app.js';
 
-const app = express();
-app.use(express.json());
+const PORT = process.env.PORT || 3333;
 
-app.use('/', userRoutes);
-app.use('/', raidRoutes);
-
-app.listen(3333, () => console.log('Server Online!'));
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
