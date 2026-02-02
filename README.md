@@ -158,6 +158,20 @@ A robust REST API for organizing raids in online games, built with Node.js, Type
 ```bash
 /raids/:id
 ```
+## Automated Tests
+This project uses **Jest** and **Supertest** to ensure the integrity of routes and business logic. The tests are integration tests, communicating directly with the database.
+### Running the tests
+
+To run the test suite, ensure the database is running and execute:
+
+```bash
+npm test
+```
+### Current Test Coverage:
+User Auth Flow: Signup, Login (JWT), Duplicate email validation.
+
+Raid Management: Raid creation (token-protected), Filtered listing, Route protection.
+
 ## Security Concepts
 
 This API implements IDOR (Insecure Direct Object Reference) protection. By using /users/me routes and extracting user identity directly from the JWT payload, we ensure that no user can manipulate URL parameters to access or modify data belonging to others.
